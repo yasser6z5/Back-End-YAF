@@ -11,6 +11,7 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.InternalServerErrorException;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
@@ -38,7 +39,12 @@ public class UserFacadeREST extends AbstractFacade<User> {
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(User entity) {
-        super.create(entity);
+        try{   
+            super.create(entity);
+        }catch(Exception e){
+            throw new InternalServerErrorException(e);
+        }
+        
     }
 
     @PUT
